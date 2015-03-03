@@ -1,11 +1,17 @@
 package pcsma.events.iiitd.pcma_project.activity;
 
 import android.app.Activity;
-import android.app.ListActivity;
+//import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.facebook.HttpMethod;
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.Session;
 
 import java.util.ArrayList;
 
@@ -68,6 +74,25 @@ public class PopulatingEvents extends Activity {
         eventsPopulate.add(new EventsList("title4","description1","date1","time1","imageUrl1"));
         eventsPopulate.add(new EventsList("title5","description1","date1","time1","imageUrl1"));
         eventsPopulate.add(new EventsList("title16","description1","date1","time1","imageUrl1"));
+
+
+        new Request(
+                 session,
+                "/me/events",
+                null,
+                HttpMethod.GET,
+                new Request.Callback() {
+                    public void onCompleted(Response response) {
+            /* handle the result */
+                       String res=response.toString();
+
+                        System.out.println("123 : "+res);
+
+
+                    }
+                }
+        ).executeAsync();
+
 
     }
 }
