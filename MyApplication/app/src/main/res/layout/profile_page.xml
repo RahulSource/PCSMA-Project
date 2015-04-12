@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    >
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/profile_page_lv"
+        android:background="#ffffff"
+        android:divider="#345357"
+        android:layout_alignParentTop="true"
+        android:dividerHeight="5dp"
+        android:fastScrollEnabled="true"
+        android:layout_above="@+id/profile_page_rl" />
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/com_facebook_usersettingsfragment_not_connected_text_color"
+        android:clickable="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/profile_page_rl">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logout Facebook"
+            android:textSize="30sp"
+            android:id="@+id/bt_logout"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+            <ImageView
+                android:layout_height="50sp"
+                android:layout_width="56dp"
+                android:padding="10dp"
+                android:src="@drawable/com_facebook_button_like_icon"
+                android:layout_marginLeft="45dp"
+                android:layout_marginStart="45dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/bt_logout"
+                android:layout_toEndOf="@+id/bt_logout" />
+
+        </RelativeLayout>
+
+
+</RelativeLayout>

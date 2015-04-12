@@ -1,0 +1,131 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="pcsma.events.iiitd.pcma_project.activity.DescussionPage">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:orientation="vertical"
+    android:id="@+id/descussion_page_linearLayout">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:orientation="horizontal"
+    android:weightSum="100">
+
+    <FrameLayout
+        android:id="@+id/descussion_page_fl_reporctcard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="70" >
+
+        <ImageView
+            android:id="@+id/descussion_page_iv_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fffff9"
+            android:scaleType="fitXY"
+            />
+
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="6dp"
+        android:layout_weight="30"
+        android:padding="8dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/descussion_page_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:fontFamily="sans-serif"
+            android:maxLines="1"
+            android:text="Title"
+            android:textSize="16sp"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:id="@+id/descussion_page_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="3"
+            android:fontFamily="sans-serif"
+            android:text="Description"
+            android:layout_below="@+id/descussion_page_title"
+            android:textSize="14sp"
+            android:textStyle="bold|italic" />
+
+
+        <TextView
+            android:id="@+id/descussion_page_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:maxLines="1"
+            android:text="Date"
+            android:layout_alignParentBottom="true"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/descussion_page_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/descussion_page_date"
+            android:fontFamily="sans-serif-condensed"
+            android:maxLines="1"
+            android:layout_alignParentBottom="true"
+            android:paddingLeft="10dp"
+            android:text="time"
+            android:textSize="12sp" />
+
+
+    </RelativeLayout>
+</LinearLayout>
+</LinearLayout>
+
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/descussion_page_lv"
+        android:layout_below="@+id/descussion_page_linearLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_above="@+id/descussion_page_fotter"
+        android:layout_alignParentStart="true" />
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:id="@+id/descussion_page_fotter"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentLeft="true"
+    android:orientation="horizontal"
+    android:weightSum="100"
+    >
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/descussion_page_et_descussion"
+        android:layout_toRightOf="@+id/descussion_page_button"
+        android:layout_alignParentLeft="true"
+        android:layout_weight="80"
+    />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Go"
+        android:id="@+id/descussion_page_button"
+        android:layout_weight="20"
+        android:layout_alignParentRight="true"/>
+
+</LinearLayout>
+
+
+</RelativeLayout>

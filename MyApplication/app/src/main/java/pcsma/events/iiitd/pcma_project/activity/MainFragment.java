@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.facebook.HttpMethod;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
@@ -239,6 +240,21 @@ public class MainFragment extends Fragment {
 
             }).executeAndWait();
 
+
+
+            new Request(
+                    session,
+                    "/search?type=event&q=IIIT%20Delhi",
+                    null,
+                    HttpMethod.GET,
+                    new Request.Callback() {
+                        public void onCompleted(Response response) {
+                            String res=response.toString();
+                            System.out.println("123 : "+res);
+                        }
+                    }
+            ).executeAsync();
+
             return fbUserID;
         }
 
@@ -246,8 +262,12 @@ public class MainFragment extends Fragment {
         protected void onPostExecute(String result) {
 
             super.onPostExecute(result);
+//search?type=event&q=IIIT%20Delhi
 
-            Intent intent = new Intent(getActivity(),PopulatingEvents.class);
+
+
+        //    Intent intent = new Intent(getActivity(),ProfilePage.class);
+            Intent intent = new Intent(getActivity(),MainMenu.class);
             intent.putExtra("FB_USER_ID", fbUserID);
             intent.putExtra("FB_USER_NAME", fbUserName);
             startActivity(intent);

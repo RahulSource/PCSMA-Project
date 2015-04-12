@@ -2,20 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pcsma.events.iiitd.pcma_project" >
 
-
-
-    <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
 
-
-
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
         <activity
             android:name="com.facebook.LoginActivity"
             android:label="@string/app_name"
@@ -24,10 +21,6 @@
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name" >
-
-
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,6 +30,30 @@
         <activity
             android:name=".activity.PopulatingEvents"
             android:label="@string/title_activity_populating_events" >
+        </activity>
+        <activity
+            android:name=".activity.ProfilePage"
+            android:label="@string/title_activity_profile_page" >
+        </activity>
+        <activity
+            android:name=".activity.DescussionPage"
+            android:label="@string/title_activity_descusion_page" >
+        </activity>
+        <activity
+            android:name=".activity.EventsDescription"
+            android:label="@string/title_activity_events_description" >
+        </activity>
+        <activity
+            android:name=".activity.MainMenu"
+            android:label="@string/title_activity_main_menu" >
+        </activity>
+        <activity
+            android:name=".activity.CalenderPage"
+            android:label="@string/title_activity_calender_page" >
+        </activity>
+        <activity
+            android:name=".activity.SettingsPage"
+            android:label="@string/title_activity_settings_page" >
         </activity>
     </application>
 

@@ -20,14 +20,6 @@ public class EventsList {
 
     private String imageUrl;
 
-
-
-/*
-
-
-
- */
-
     public EventsList(String title, String description, String date, String time, String imageUrl){
         this.title=title;
         this.description=description;

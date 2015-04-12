@@ -1,41 +1,76 @@
 package pcsma.events.iiitd.pcma_project.activity;
 
-import android.app.Activity;
-//import android.app.ListActivity;
+import android.content.Intent;
+import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import com.facebook.HttpMethod;
-import com.facebook.Request;
-import com.facebook.Response;
-import com.facebook.Session;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
 import pcsma.events.iiitd.pcma_project.R;
-import pcsma.events.iiitd.pcma_project.adapter.EventsAdapter;
+import pcsma.events.iiitd.pcma_project.adapter.ProfilePageAdapter;
 import pcsma.events.iiitd.pcma_project.populatingClass.EventsList;
+import android.view.View.OnClickListener;
+
+import com.facebook.Session;
 
 
-public class PopulatingEvents extends Activity {
+public class ProfilePage extends ActionBarActivity {
 
 
 
     ArrayList<EventsList> eventsPopulate = new ArrayList<EventsList>();
 
-    ListView eventsListView;
+    ListView profileListView;
+
+    RelativeLayout logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.events_lv_page);
+        setContentView(R.layout.profile_page);
 
-        eventsListView=(ListView) findViewById(R.id.events_lv1);
+        profileListView=(ListView) findViewById(R.id.profile_page_lv);
         populateData();
-        eventsListView.setAdapter(new EventsAdapter(eventsPopulate, this));
+
+        logout=(RelativeLayout)  findViewById(R.id.profile_page_rl);
+        logout.setOnClickListener(new OnClickListener() {
+
+            @Override
+
+            public void onClick(View view) {
+
+              //  Toast.makeText(MainActivity.this, "Button Clicked", Toast.LENGTH_SHORT).show();
+
+                Session session = Session.getActiveSession();
+                if (session != null) {
+                    if (!session.isClosed()) {
+                        session.closeAndClearTokenInformation();
+
+                    }
+                } else {
+
+                    session = new Session(getBaseContext());
+                    Session.setActiveSession(session);
+                    session.closeAndClearTokenInformation();
+
+                }
+
+                Intent intent = new Intent(ProfilePage.this, MainActivity.class);
+              /*  edit.putString("FB_USER_ID","0");
+                edit.commit();*/
+                startActivity(intent);
+
+
+            }
+        });
+
+        profileListView.setAdapter(new ProfilePageAdapter(eventsPopulate, this));
+
 
 
 
@@ -45,7 +80,7 @@ public class PopulatingEvents extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_populating_events, menu);
+        getMenuInflater().inflate(R.menu.menu_profile_page, menu);
         return true;
     }
 
@@ -63,7 +98,6 @@ public class PopulatingEvents extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-
 
 
     public void populateData(){
@@ -99,4 +133,5 @@ search?type=event&q=IIIT%20Delhi
 */
 
     }
+
 }

@@ -15,7 +15,7 @@ import pcsma.events.iiitd.pcma_project.R;
 import pcsma.events.iiitd.pcma_project.populatingClass.EventsList;
 
 /**
- * Created by dell on 2/25/2015.
+ * Created by Rahul on 2/25/2015.
  */
 public class EventsAdapter extends BaseAdapter {
 
@@ -61,7 +61,6 @@ public class EventsAdapter extends BaseAdapter {
             view= inflater.inflate(R.layout.events_lv_row, parent, false);
             viewElements=new ViewElements();
             view.setTag(viewElements);
-
 
         } else {
             viewElements = (ViewElements) view.getTag();

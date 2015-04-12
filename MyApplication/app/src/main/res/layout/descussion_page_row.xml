@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:text="Name:"
+        android:paddingRight="8dp"
+        android:id="@+id/descussion_page_row_tv_name"
+        android:textSize="19sp"
+        android:textStyle="bold|italic"
+    />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:text="Date"
+        android:textSize="15sp"
+        android:textStyle="bold|italic"
+        android:id="@+id/descussion_page_row_tv_date"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/descussion_page_row_tv_time"
+        android:layout_toStartOf="@+id/descussion_page_row_tv_time" />
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:text="time"
+            android:paddingRight="8dp"
+            android:id="@+id/descussion_page_row_tv_time"
+            android:paddingLeft="8dp"
+            android:textSize="15sp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="end"
+            android:textStyle="bold|italic"
+
+            />
+    </RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:text="Descruption"
+        android:id="@+id/descussion_page_row_tv_description"
+        android:paddingLeft="8dp"
+        android:textSize="15sp"
+        android:layout_alignParentRight="true"
+
+
+        />
+
+</LinearLayout>

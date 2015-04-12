@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_marginLeft="10dp"
+android:layout_marginRight="10dp"
+android:background="#ffffff"
+android:orientation="horizontal"
+android:padding="10dp" >
+<RelativeLayout
+    android:id="@+id/settings_row"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_weight="35"
+
+    android:orientation="vertical" >
+    <TextView
+        android:id="@+id/settings_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:fontFamily="roboto-light"
+        android:maxLines="2"
+        android:text="welcome to settings page."
+        android:textColor="#000000"
+        android:textSize="14sp"
+        android:layout_marginBottom="12dp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/settings_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/settings_header"
+        android:fontFamily="roboto-light"
+        android:maxLines="7"
+        android:text="This page has your settings options."
+        android:textColor="#000000"
+        android:textSize="12sp" />
+
+
+</RelativeLayout>
+
+
+</LinearLayout>
