@@ -155,17 +155,11 @@ public class MainFragment extends Fragment {
                 public void onUserInfoFetched(GraphUser user) {
 
                     System.out.println("USER INFO FETCH");
+                    MainFragment.this.fbUserID = user.getId();
+                    MainFragment.this.fbUserName = user.getName();
 
-                    if(user==null){
-
-                    }
-                    else {
-                        MainFragment.this.fbUserID = user.getId();
-                        MainFragment.this.fbUserName = user.getName();
-
-                        FBGetUserInfo info = new FBGetUserInfo();
-                        info.execute();
-                    }
+                    FBGetUserInfo info = new FBGetUserInfo();
+                    info.execute();
 
                 }
             });
