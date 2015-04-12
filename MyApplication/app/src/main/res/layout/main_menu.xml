@@ -12,7 +12,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="What's New "
+        android:text="About Me"
         android:id="@+id/menu_button1"
         android:background="#25ff0000"
         android:textStyle="bold"
