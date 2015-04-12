@@ -63,6 +63,7 @@ public class ProfilePage extends ActionBarActivity {
                 Intent intent = new Intent(ProfilePage.this, MainActivity.class);
               /*  edit.putString("FB_USER_ID","0");
                 edit.commit();*/
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
 
 
