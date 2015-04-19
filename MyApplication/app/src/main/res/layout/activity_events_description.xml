@@ -4,9 +4,244 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:scrollbars="vertical"
     tools:context="pcsma.events.iiitd.pcma_project.activity.EventsDescription">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:orientation="horizontal"
+        android:id="@+id/events_description_ll_head">
+
+
+        <FrameLayout
+            android:id="@+id/fl_reporctcard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="70" >
+
+            <ImageView
+                android:id="@+id/events_lv_row_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fffff9"
+                android:scaleType="fitXY"
+                />
+
+
+        </FrameLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="6dp"
+            android:layout_weight="30"
+            android:padding="8dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/events_description_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:fontFamily="sans-serif"
+
+                android:text="Title"
+                android:textSize="21sp"
+                android:textStyle="bold|italic" />
+
+
+            <TextView
+                android:id="@+id/events_lv_row_venu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:text="Venu"
+                android:textSize="15sp"
+                android:layout_below="@+id/events_description_title"
+                android:textStyle="bold|italic"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:id="@+id/events_lv_row_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:fontFamily="sans-serif-condensed"
+                android:maxLines="1"
+                android:text="Date"
+                android:layout_alignParentBottom="true"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/events_lv_row_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/events_lv_row_date"
+                android:fontFamily="sans-serif-condensed"
+                android:maxLines="1"
+                android:layout_alignParentBottom="true"
+                android:paddingLeft="10dp"
+                android:text="time"
+                android:textSize="15sp" />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp"
+    android:id="@+id/events_description_ll_button"
+    android:layout_below="@+id/events_description_ll_head"
+    android:gravity="center_horizontal">
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/events_description_going"
+        android:text="Going"
+        android:padding="10dp"
+        android:background="#ffffff"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/events_description_maybe"
+        android:padding="10dp"
+        android:text="Maybe"
+        android:background="#ffffff"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/events_description_not_going"
+        android:text="Not Going"
+        android:padding="10dp"
+        android:background="#ffffff"
+
+        />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/events_lv_row_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+
+        android:fontFamily="sans-serif"
+        android:text="Description: "
+
+        android:layout_below="@+id/events_description_ll_button"
+        android:textSize="15sp"
+        android:textStyle="bold|italic" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="75dp"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:weightSum="90"
+    android:orientation="horizontal"
+    android:id="@+id/ll">
+
+    <LinearLayout
+        android:id="@+id/fl_button1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="30"
+        android:clickable="true"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/events_description_button_iv1"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/descuss"
+            android:layout_gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/image_text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif"
+            android:text="View Discussion"
+            android:layout_below="@+id/events_description_ll_button"
+            android:textSize="12sp"
+            android:textStyle="bold|italic" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/fl_button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="30"
+        android:clickable="true"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/events_description_button_iv2"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/alarm"
+            android:layout_gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/image_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif"
+            android:text="Set Reminder"
+            android:layout_below="@+id/events_description_ll_button"
+            android:textSize="12sp"
+            android:textStyle="bold|italic" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/fl_button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="30"
+        android:clickable="true"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/events_description_button_iv3"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/map_marker"
+            android:layout_gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/image_text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif"
+            android:text="View Venu"
+            android:layout_below="@+id/events_description_ll_button"
+            android:textSize="12sp"
+            android:textStyle="bold|italic" />
+
+    </LinearLayout>
+
+</LinearLayout>
+
 
 </RelativeLayout>

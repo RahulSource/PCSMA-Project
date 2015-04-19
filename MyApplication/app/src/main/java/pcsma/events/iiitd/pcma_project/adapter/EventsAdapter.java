@@ -9,6 +9,8 @@ import android.content.Context;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import pcsma.events.iiitd.pcma_project.R;
@@ -78,8 +80,13 @@ public class EventsAdapter extends BaseAdapter {
         viewElements.time.setText(eventsArrayList.get(position).getTime());
         viewElements.description.setText(eventsArrayList.get(position).getDescription());
         viewElements.date.setText(eventsArrayList.get(position).getDate());
-        viewElements.url.setImageResource(R.drawable.com_facebook_button_like);
+       //viewElements.url.setImageResource(R.drawable.com_facebook_button_like);
 
+        Picasso.with(context)
+                .load("https://scontent.xx.fbcdn.net/hphotos-xaf1/t31.0-8/s720x720/10841944_1065386286811734_8044076824818561381_o.jpg")
+                .placeholder(R.drawable.com_facebook_button_like) // optional
+                .error(R.drawable.com_facebook_button_like)         // optional
+                .into(viewElements.url);
 
 
         return view;

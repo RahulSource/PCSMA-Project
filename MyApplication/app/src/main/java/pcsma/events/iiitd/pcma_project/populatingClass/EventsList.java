@@ -5,6 +5,15 @@ package pcsma.events.iiitd.pcma_project.populatingClass;
  */
 public class EventsList {
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    private String id;
     private String title;
     private String description;
     private String date;
@@ -29,7 +38,16 @@ public class EventsList {
 
 
     }
+    public EventsList(String title, String description, String date, String time, String imageUrl, String id){
+        this.title=title;
+        this.description=description;
+        this.date=date;
+        this.time=time;
+        this.imageUrl=imageUrl;
+        this.id=id;
 
+
+    }
 
 
     public String getTitle() {

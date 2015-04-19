@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -19,7 +20,7 @@ import android.view.View.OnClickListener;
 import com.facebook.Session;
 
 
-public class ProfilePage extends ActionBarActivity {
+public class ProfilePage extends ActionBarActivity  implements AdapterView.OnItemClickListener{
 
 
 
@@ -135,4 +136,11 @@ search?type=event&q=IIIT%20Delhi
 
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        Intent intent = new Intent(this,EventsDescription.class);
+        intent.putExtra("event_id", eventsPopulate.get(position).getId());
+        startActivity(intent);
+    }
 }

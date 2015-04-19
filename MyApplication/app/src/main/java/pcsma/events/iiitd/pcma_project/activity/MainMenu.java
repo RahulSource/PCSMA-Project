@@ -1,6 +1,7 @@
 package pcsma.events.iiitd.pcma_project.activity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
@@ -9,6 +10,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.Comment;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Iterator;
 
 import pcsma.events.iiitd.pcma_project.R;
 
@@ -99,6 +118,12 @@ protected void onResume(){
 
                 break;
             case R.id.menu_button4:
+/*
+
+                urlParser up=new urlParser();
+                up.execute();
+*/
+
 
                 intent = new Intent(MainMenu.this, SettingsPage.class);
 
@@ -110,4 +135,53 @@ protected void onResume(){
 
         }
     }
+
+
+    public class urlParser extends AsyncTask<String, String, String> {
+
+        String url = "https://graph.facebook.com/v2.3/1590279131249787?fields=cover&access_token=CAAEfAkvKAxcBAMTpoRGN4hvMQ67lwZCu4T6zMhaYhBhsuDGyP2EZBsprYuXvwLLcbFpF3hgUwkW6PHzeAAldUkyMsAZCRRPc7BePuPxaHuFtWPMvKgEpm13jCdZAiAc3KczY0XoAQxAFnWyC5bnCAjsGTstDM3XmalJF9KdnRZBf4ZB1JqhiZBuUlNkDZCYeVDTOnFFREh8aLquwPLvDR7MH";
+
+        @Override
+        protected String doInBackground(String... params) {
+
+
+            try {
+
+                HttpClient client = new DefaultHttpClient();
+                HttpGet get = new HttpGet();
+                get.setURI(new URI(url));
+                HttpResponse res = client.execute(get);
+                HttpEntity entity = res.getEntity();
+                String resStr = EntityUtils.toString(entity);
+                System.out.println("123 " + resStr);
+
+
+                if (res == null) {
+                    //"Could not fetch the responce"
+                } else {
+
+
+                    JSONObject jObj = new JSONObject(resStr);
+
+                    JSONObject src = new JSONObject(jObj.getString("cover"));
+                    String source = src.getString("source");
+                    System.out.println("123 " + source);
+
+                }
+
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            return null;
+        }
+
+    }
+
+
+
+
+
+
+
 }
