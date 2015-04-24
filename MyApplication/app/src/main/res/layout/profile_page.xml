@@ -6,8 +6,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/profile_page_lv"
-        android:background="#ffffff"
-        android:divider="#345357"
+        android:background="#f2f2f2"
+        android:divider="#ffffff"
         android:layout_alignParentTop="true"
         android:dividerHeight="5dp"
         android:fastScrollEnabled="true"
@@ -15,7 +15,7 @@
     <RelativeLayout
 
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="65dp"
         android:background="@color/com_facebook_usersettingsfragment_not_connected_text_color"
         android:clickable="true"
         android:layout_alignParentBottom="true"

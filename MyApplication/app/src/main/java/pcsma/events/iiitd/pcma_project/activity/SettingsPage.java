@@ -48,6 +48,12 @@ import android.widget.Toast;
 import pcsma.events.iiitd.pcma_project.R;
 import pcsma.events.iiitd.pcma_project.adapter.SettingsListViewAdapter;
 import pcsma.events.iiitd.pcma_project.populatingClass.SettingsAttributes;
+import pcsma.events.iiitd.pcma_project.populatingClass.User;
+import retrofit.Callback;
+import retrofit.RequestInterceptor;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class SettingsPage extends ActionBarActivity implements OnItemClickListener, View.OnClickListener {
 
@@ -76,7 +82,7 @@ public class SettingsPage extends ActionBarActivity implements OnItemClickListen
 
 
 
-    public static String despTime="selected time.",duration[]={"2 Hrs.","4 Hrs.","8 Hrs.","16 Hrs.","One Day","One Week","One Month","One Year"};
+    public static String despTime="selected time.",duration[]={"2 Hrs.","4 Hrs.","8 Hrs.","16 Hrs.","One Day","One Week","One Month"};
 
 
 
@@ -93,7 +99,7 @@ public class SettingsPage extends ActionBarActivity implements OnItemClickListen
         saveSettings= (Button) findViewById(R.id.b_settings_save);
         saveSettings.setOnClickListener(this);
 
-        pref = SettingsPage.this.getSharedPreferences("pref", 0);
+        pref = SettingsPage.this.getSharedPreferences("IIITD_Events", 0);
         edit = pref.edit();
 
         despTime=pref.getString("SelectedTime","selected time.");
@@ -289,6 +295,83 @@ public class SettingsPage extends ActionBarActivity implements OnItemClickListen
             case R.id.b_settings_save:
 
 
+String time="0 2:0:0.0";
+
+                if(despTime.equals("2 Hrs.")){
+                    time="0 2:0:0.0";
+                }
+                else if(despTime.equals("4 Hrs.")){
+                    time="0 4:0:0.0";
+                }
+
+                else if(despTime.equals("8 Hrs.")){
+                    time="0 8:0:0.0";
+                }
+                else if(despTime.equals("16 Hrs.")){
+                    time="0 16:0:0.0";
+                }
+                else if(despTime.equals("One Day")){
+                    time="1 0:0:0.0";
+                }
+                else if(despTime.equals("One Week")){
+                    time="7 0:0:0.0";
+                }
+                else if(despTime.equals("One Month")){
+                    time="31 0:0:0.0";
+                }
+                else if(despTime.equals("One Year")){
+                    time="0 0:0:0.0";
+                }
+
+
+
+                SharedPreferences pref;
+                SharedPreferences.Editor edit;
+
+
+                pref = SettingsPage.this.getSharedPreferences("IIITD_Events", 0);
+                edit = pref.edit();
+
+
+                RequestInterceptor requestInterceptor = new RequestInterceptor() {
+                    @Override
+                    public void intercept(RequestInterceptor.RequestFacade request) {
+                        request.addHeader("Content-Type", "application/json");
+                        request.addHeader("Accept", "application/json");
+                    }
+                };
+
+                RestAdapter restAdapter = new RestAdapter.Builder()
+                        .setEndpoint("http://192.168.48.2:8080")
+                        .setRequestInterceptor(requestInterceptor)
+                        .build();
+
+                PublicEvents publicEvents = restAdapter.create(PublicEvents.class);
+
+
+
+                String user_id=pref.getString( "FB_USER_ID", "");
+                String user_name=pref.getString("FB_USER_NAME","");
+
+                User user=new User( user_id,  user_name, time,  categoryArray[0], categoryArray[1],  categoryArray[2], categoryArray[3],  categoryArray[4],  categoryArray[5],  categoryArray[6]);
+
+
+
+                publicEvents.updateUserTable(user, new Callback<User>(){
+                    public void failure(RetrofitError arg0) {
+
+                        System.out.println("fail 123");
+                    }
+                    public void success(User arg0, Response arg1) {
+                        System.out.println("no fail 123");
+
+
+                    }
+                });
+
+
+
+
                 edit.putString("SelectedTime",despTime);
                 edit.commit();
                 System.out.println("793 --");
@@ -407,7 +490,7 @@ public class SettingsPage extends ActionBarActivity implements OnItemClickListen
 
     private class ServiceConnection extends AsyncTask
     {
-        String time="24";
+
 
         protected void onPreExecute() {
             super.onPreExecute();
@@ -431,62 +514,15 @@ public class SettingsPage extends ActionBarActivity implements OnItemClickListen
             {
 
 
+
                 HttpClient expDriveCellClient=new DefaultHttpClient();
                 HttpPost expDriveCellPost=new HttpPost(SERVICE_URI);
 
-
-                if(despTime.equals("2 Hrs.")){
-                    time="2";
-                }
-                else if(despTime.equals("4 Hrs.")){
-                    time="4";
-                }
-
-                else if(despTime.equals("8 Hrs.")){
-                    time="8";
-                }
-                else if(despTime.equals("16 Hrs.")){
-                    time="16";
-                }
-                else if(despTime.equals("One Day")){
-                    time="24";
-                }
-                else if(despTime.equals("One Week")){
-                    time="200";
-                }
-                else if(despTime.equals("One Month")){
-                    time="760";
-                }
-                else if(despTime.equals("One Year")){
-                    time="8760";
-                }
-                JSONStringer expDriveCellJSON=new JSONStringer()
-                        .object()
-                        .key("fbUserID").value(fbUserID)
-                        .key("Road_Condition").value(String.valueOf(categoryArray[0]))
-                        .key("Garbage").value(String.valueOf(categoryArray[1]))
-                        .key("Traffic_Jam").value(String.valueOf(categoryArray[2]))
-                        .key("Transit_Overload").value(String.valueOf(categoryArray[3]))
-                        .key("Power_Issue").value(String.valueOf(categoryArray[4]))
-                        .key("Water_Issue").value(String.valueOf(categoryArray[5]))
-                        .key("Not_Sure").value(String.valueOf(categoryArray[6]))
-                        .key("time").value(time)
+                String user_id=pref.getString("FB_USER_ID","0");
+                String name=pref.getString("FB_USER_NAME","unKnown");
 
 
-				/*.key("latitude").value(String.valueOf(latitude))
-				.key("longitude").value(String.valueOf(longitude))
-				 */.endObject();
 
-                System.out.println("settings: "+expDriveCellJSON.toString());
-
-                StringEntity expDriveCellEntity = new StringEntity(expDriveCellJSON.toString());
-                expDriveCellEntity.setContentType("application/json;charset=UTF-8");//text/plain;charset=UTF-8
-                expDriveCellEntity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE,"application/json;charset=UTF-8"));
-                expDriveCellPost.setEntity(expDriveCellEntity);
-
-                HttpResponse httpExpDriveCellResponse=expDriveCellClient.execute(expDriveCellPost);
-
-                HttpEntity httpExpDriveCellEntity = httpExpDriveCellResponse.getEntity();
 
             }
 
@@ -498,46 +534,4 @@ public class SettingsPage extends ActionBarActivity implements OnItemClickListen
         }
     }
 
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

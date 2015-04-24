@@ -7,11 +7,11 @@
 
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="300dp"
-    android:paddingLeft="70dp"
-    android:paddingTop="40dp"
-    android:paddingRight="70dp"
-    android:paddingBottom="30dp"
+    android:layout_height="wrap_content"
+    android:paddingLeft="50dp"
+    android:paddingTop="20dp"
+    android:paddingRight="50dp"
+    android:paddingBottom="20dp"
     android:id="@+id/profile_page_rl_image"
 
 >
@@ -37,6 +37,7 @@
         android:id="@+id/profile_page_tv_name"
         android:layout_gravity="center_horizontal"
         android:textSize="30sp"
+        android:maxLines="2"
         android:textStyle="bold"
         android:layout_below="@+id/profile_page_facebook_profileimage"
         android:layout_centerHorizontal="true" />

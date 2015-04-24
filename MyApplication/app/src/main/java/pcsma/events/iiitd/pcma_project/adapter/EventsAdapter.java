@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import pcsma.events.iiitd.pcma_project.R;
+import pcsma.events.iiitd.pcma_project.populatingClass.Events;
 import pcsma.events.iiitd.pcma_project.populatingClass.EventsList;
 
 /**
@@ -22,11 +23,11 @@ import pcsma.events.iiitd.pcma_project.populatingClass.EventsList;
 public class EventsAdapter extends BaseAdapter {
 
 
-    ArrayList<EventsList> eventsArrayList = new ArrayList();
+    ArrayList<Events> eventsArrayList = new ArrayList();
     LayoutInflater inflater;
     Context context;
 
-    public EventsAdapter(ArrayList<EventsList> eventsArrayList, Context context) {
+    public EventsAdapter(ArrayList<Events> eventsArrayList, Context context) {
         this.eventsArrayList = eventsArrayList;
         this.context = context;
         inflater = LayoutInflater.from(this.context);
@@ -76,19 +77,34 @@ public class EventsAdapter extends BaseAdapter {
         viewElements.url=(ImageView) view.findViewById(R.id.events_lv_row_image);
 
 
-        viewElements.title.setText(eventsArrayList.get(position).getTitle());
-        viewElements.time.setText(eventsArrayList.get(position).getTime());
+        viewElements.title.setText(eventsArrayList.get(position).getName());
+        String tTime=eventsArrayList.get(position).getDate();
+
+        viewElements.time.setText(tTime.substring(11,18));
         viewElements.description.setText(eventsArrayList.get(position).getDescription());
-        viewElements.date.setText(eventsArrayList.get(position).getDate());
+
+        viewElements.date.setText(tTime.substring(0,10));
        //viewElements.url.setImageResource(R.drawable.com_facebook_button_like);
 
-        Picasso.with(context)
-                .load("https://scontent.xx.fbcdn.net/hphotos-xaf1/t31.0-8/s720x720/10841944_1065386286811734_8044076824818561381_o.jpg")
-                .placeholder(R.drawable.com_facebook_button_like) // optional
-                .error(R.drawable.com_facebook_button_like)         // optional
-                .into(viewElements.url);
+System.out.println("123458 :"+position);
+        //.load(eventsArrayList.get(position).getImageUrl())
+        if(eventsArrayList.get(position).getCover_url()!=null || eventsArrayList.get(position).getCover_url().equals("")) {
+            Picasso.with(context)
+                    .load(eventsArrayList.get(position).getCover_url())
+                    .placeholder(R.drawable.com_facebook_button_like) // optional
+                    .error(R.drawable.com_facebook_button_like)         // optional
+                    .into(viewElements.url);
+        }
 
+        else
+        {
+            Picasso.with(context)
+                    .load("hj")
+                    .placeholder(R.drawable.com_facebook_button_like) // optional
+                    .error(R.drawable.com_facebook_button_like)         // optional
+                    .into(viewElements.url);
 
+        }
         return view;
     }
 

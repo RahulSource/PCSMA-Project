@@ -7,6 +7,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.facebook.HttpMethod;
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.Session;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 import pcsma.events.iiitd.pcma_project.R;
 //import pcsma.events.iiitd.pcma_project.activity.PopulatingEvents;
 
@@ -34,6 +45,12 @@ public class MainActivity extends FragmentActivity{
             mainFragment = (MainFragment) getSupportFragmentManager()
                     .findFragmentById(android.R.id.content);
         }
+
+
+
+
+
+
 
 
 

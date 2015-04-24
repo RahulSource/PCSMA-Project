@@ -5,16 +5,18 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
 
 import com.facebook.HttpMethod;
 import com.facebook.Request;
@@ -36,12 +38,13 @@ public class MainFragment extends Fragment {
 
     }
 
-
+    SharedPreferences pref;
+    Editor edit;
 
     private UiLifecycleHelper uiHelper;
-    ProfilePictureView userPic;
+
     LoginButton authButton;
-    ProgressDialog progress;
+
     String fbUserID = "";
     String fbUserName = "";
     public Session session;
@@ -89,6 +92,8 @@ public class MainFragment extends Fragment {
         uiHelper = new UiLifecycleHelper(getActivity(), callback);
         uiHelper.onCreate(savedInstanceState);
 
+        pref = getActivity().getSharedPreferences("IIITD_Events", 0);
+        edit = pref.edit();
 
     }
 
@@ -211,15 +216,14 @@ public class MainFragment extends Fragment {
         uiHelper.onSaveInstanceState(outState);
     }
 
-    private String buildUserInfoDisplay(GraphUser user) {
+    private void buildUserInfoDisplay(GraphUser user) {
 
         System.out.println("buildUserInfoDisplay");
-        StringBuilder userInfo = new StringBuilder("");
+       // StringBuilder userInfo = new StringBuilder("");
 
-        userInfo.append(String.format("%s",	user.getId()));
-        userInfo.append(String.format("%s", user.getName()));
 
-        return userInfo.toString();
+
+      //  return userInfo.toString();
     }
 
     private class FBGetUserInfo extends AsyncTask<String, Void, String> {
@@ -276,6 +280,12 @@ public class MainFragment extends Fragment {
             Intent intent = new Intent(getActivity(),MainMenu.class);
             intent.putExtra("FB_USER_ID", fbUserID);
             intent.putExtra("FB_USER_NAME", fbUserName);
+            System.out.println("1235: " + fbUserID +fbUserName );
+
+            edit.putString("FB_USER_ID", fbUserID);
+            edit.putString("FB_USER_NAME", fbUserName);
+
+            edit.commit();
             startActivity(intent);
         }
     }

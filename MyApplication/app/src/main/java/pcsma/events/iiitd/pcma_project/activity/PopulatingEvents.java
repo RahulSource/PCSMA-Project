@@ -2,7 +2,12 @@ package pcsma.events.iiitd.pcma_project.activity;
 
 import android.app.Activity;
 //import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,29 +16,45 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.facebook.HttpMethod;
-import com.facebook.Request;
-import com.facebook.Response;
-import com.facebook.Session;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
 import pcsma.events.iiitd.pcma_project.R;
 import pcsma.events.iiitd.pcma_project.adapter.EventsAdapter;
-import pcsma.events.iiitd.pcma_project.populatingClass.EventsList;
+import pcsma.events.iiitd.pcma_project.populatingClass.Events;
+import retrofit.Callback;
+import retrofit.RequestInterceptor;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
 
 
 public class PopulatingEvents extends Activity implements AdapterView.OnItemClickListener {
 
+    SharedPreferences pref;
+    public SharedPreferences.Editor edit;
+    String json;
+    EventsAdapter adapter;
+    int netn=1;
 
 
-    ArrayList<EventsList> eventsPopulate = new ArrayList<EventsList>();
 
+    private boolean isOnline() {
+        ConnectivityManager cm =   (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnected()) {
+            return true;
+        }
+        return false;
+    }
+
+
+    String user_id;
+    ArrayList<Events> eventsPopulate = new ArrayList<Events>();
+    PublicEvents publicEvents;
     ListView eventsListView;
+    Gson gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +63,19 @@ public class PopulatingEvents extends Activity implements AdapterView.OnItemClic
 
         eventsListView=(ListView) findViewById(R.id.events_lv1);
         populateData();
-        eventsListView.setAdapter(new EventsAdapter(eventsPopulate, this));
 
+
+
+
+        pref = PopulatingEvents.this.getSharedPreferences("IIITD_Events", 0);
+        edit = pref.edit();
+        gson = new Gson();
         eventsListView.setOnItemClickListener(this);
 
+
+        adapter=new EventsAdapter(eventsPopulate, getApplicationContext());
+
+        eventsListView.setAdapter(adapter);
 
 
     }
@@ -77,12 +107,89 @@ public class PopulatingEvents extends Activity implements AdapterView.OnItemClic
 
     public void populateData(){
 
-        eventsPopulate.add(new EventsList("title1","description1","date1","time1","imageUrl1","123"));
-        eventsPopulate.add(new EventsList("title2","description1","date1","time1","imageUrl1","123"));
-        eventsPopulate.add(new EventsList("title3","description1","date1","time1","imageUrl1","123"));
-        eventsPopulate.add(new EventsList("title4","description1","date1","time1","imageUrl1","123"));
-        eventsPopulate.add(new EventsList("title5","description1","date1","time1","imageUrl1","123"));
-        eventsPopulate.add(new EventsList("title16","description1","date1","time1","imageUrl1","123"));
+
+
+        pref = PopulatingEvents.this.getSharedPreferences("IIITD_Events", 0);
+        edit = pref.edit();
+
+
+        RequestInterceptor requestInterceptor = new RequestInterceptor() {
+            @Override
+            public void intercept(RequestInterceptor.RequestFacade request) {
+                request.addHeader("Content-Type", "application/json");
+                request.addHeader("Accept", "application/json");
+            }
+        };
+
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setEndpoint("http://192.168.48.2:8080")
+                .setRequestInterceptor(requestInterceptor)
+                .build();
+
+        publicEvents = restAdapter.create(PublicEvents.class);
+        user_id=pref.getString("FB_USER_ID", "user_1");
+
+        if(isOnline()) {
+            ServiceClass srv = new ServiceClass();
+            srv.execute();
+        }
+        else {
+            Toast.makeText(getApplication(), "This is the cache version.", Toast.LENGTH_LONG).show();
+            ArrayList<Events> eventspop = new ArrayList<Events>();
+            json = pref.getString("json", " ");
+            eventsPopulate = gson.fromJson(json, new TypeToken<ArrayList<Events>>() {
+            }.getType());
+
+try {
+    for (Events object : eventspop) {
+        eventsPopulate.add(object);
+    }
+    adapter.notifyDataSetChanged();
+}
+catch(Exception e) {
+
+}
+
+        }
+/*
+        eventsPopulate.add(new Events("title1","description1","date1","imageUrl1","123"));
+        eventsPopulate.add(new Events("title2","description1","date1","imageUrl1","123"));
+        eventsPopulate.add(new Events("title3","description1","date1","imageUrl1","123"));
+        eventsPopulate.add(new Events("title4","description1","date1","imageUrl1","123"));
+        eventsPopulate.add(new Events("title5","description1","date1","imageUrl1","123"));
+        eventsPopulate.add(new Events("title16", "description1", "date1", "imageUrl1", "123"));*/
+
+/*
+
+        Events events=new Events();
+        PublicEvents demoEventsService= new RestAdapter.Builder().setEndpoint("http:\\").build().create(PublicEvents.class);
+        demoEventsService.rsvp(1, 1, events, new Callback<String>() {
+            @Override
+            public void success(String s, retrofit.client.Response response) {
+
+                System.out.println("1237 :" + response.toString());
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+
+        ArrayList<Events> list = demoEventsService.abc(1, new Callback<String>() {
+            @Override
+            public void success(String s, retrofit.client.Response response) {
+                System.out.println(response.toString());
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                System.out.println(error.toString());
+            }
+        });
+
+*/
 
 /*
         Session session=Session.getActiveSession();
@@ -136,8 +243,81 @@ public class PopulatingEvents extends Activity implements AdapterView.OnItemClic
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         Intent intent = new Intent(this,EventsDescription.class);
-        intent.putExtra("event_id", eventsPopulate.get(position).getId());
+        intent.putExtra("event_id", eventsPopulate.get(position).getEvent_id());
         startActivity(intent);
 
+
+
     }
+
+
+
+
+
+     class ServiceClass extends AsyncTask<String, Void, String> {
+
+        ArrayList<Events> eventspop = new ArrayList<Events>();
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            eventsPopulate.clear();
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+
+
+            eventspop= publicEvents.userSettingEvents(user_id);
+
+            for (Events object : eventspop){
+                eventsPopulate.add(object);
+            }
+
+
+
+
+            return "";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            if(eventsPopulate.size()==0 || !isOnline()){
+
+                Toast.makeText(getApplication(), "This is the cache version. of your previous settings as there is nothing to Show in this settings.", Toast.LENGTH_LONG).show();
+                json=pref.getString("json"," ");
+                eventspop=gson.fromJson(json, new TypeToken<ArrayList<Events> >(){}.getType()  );
+                for (Events object : eventspop){
+                    eventsPopulate.add(object);
+                }
+            }
+
+            else{
+
+                json = gson.toJson(eventsPopulate);
+
+                System.out.println("check 124" + json);
+
+                edit.putString("json",json);
+                edit.commit();
+                System.out.println("check 124" + eventsPopulate.get(0).getDescription());
+
+            adapter.notifyDataSetChanged();
+
+            }
+
+
+
+
+        }
+    }
+
+
+
+
+
 }
